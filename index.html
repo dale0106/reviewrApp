@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+  <meta http-equiv="content-security-policy" content="default-src 'self' https://griffis.edumedia.ca; script-src 'self'; connect-src 'self' https://griffis.edumedia.ca ; img-src 'self' https://griffis.edumedia.ca; style-src 'self';" />
+    <meta name="format-detection" content="telephone=no"> 
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+    <link rel="stylesheet" href="css/index.css">
+    <title>ReviewR Application</title>
+</head>
+
+<body>
+   
+    <section id="lists" data-role="page" class="active">
+     <ul id="appendLists"></ul>
+        <button id="add">Add</button>
+    </section> 
+    
+    
+    <section id="details" data-role="page" class="inactive">
+      
+      <div id="insertTitle"></div>
+      <div id="insertReview"></div>
+      <div id="insertRating"></div>
+      <div id="insertImg"></div>
+      
+      
+        <button id="return">Return</button>  
+    </section>
+    
+
+    <section id="create" data-role="page" class="inactive">
+       <form action="" >
+        <p>Title:</p> </br>
+        <input type="text" id="getTitle">
+       <p> Review:</p> </br>
+       <input type="text" id="getReview"> 
+       </form>
+       
+       <img src="" alt="" id="preview">
+       
+       <button id="cameraBtn">Camera</button>
+       
+        <ul id="stars">
+ <p>&#9734;</p>
+ <p>&#9734;</p>
+ <p>&#9734;</p>
+ <p>&#9734;</p>
+ <p>&#9734;</p>
+        </ul>
+
+        <button id="submit">Submit</button>  
+        <button id="cancel">Cancel</button>
+    </section>
+    
+
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+    <script type="text/javascript" src="js/hammer.js"></script>
+</body>
+
+</html>
