@@ -38,13 +38,15 @@ var app = {
         cameraBtn.addEventListener("click", app.takePic);
         // run the camera plugin onclick camBtn
         
-        var starNumber = document.querySelectorAll("ul#stars > p");
+        var starNumber = document.querySelectorAll("ul > p");
         
         for(var i=0; i<starNumber.length;i++){
             
-            starNumber[i].addEventListener("click", function(){
+            starNumber[i].addEventListener("click", function(ev){
                 
-                console.log("you clicked on a star");
+                //console.log("you clicked on a star");
+                alert(ev.target.id + " stars given");
+                
                 
             })
             
@@ -67,6 +69,18 @@ var app = {
     
     upload: function(imageData){
     // if you click the cam/submit btn:
+         var starNumber = document.querySelectorAll("ul > p");
+         for(var i=0; i<starNumber.length;i++){
+            
+            starNumber[i].addEventListener("click", function(ev){  
+                //console.log("you clicked on a star");
+               // alert(ev.target.id + " stars given");
+                var starValue = ev.target.id;
+                params.append("rating", starValue);    
+            })
+            
+        }
+        
         
         var img = document.getElementById("preview");
         img.src = "data:image/jpeg;base64," + imageData;
@@ -82,7 +96,7 @@ var app = {
         params.append("action", "insert");
         params.append("title", document.getElementById("getTitle").value);
         params.append("review_txt", document.getElementById("getReview").value);
-        params.append("rating", 4 );
+       // params.append("rating", 4 );
         params.append("img", imageData);
     
         xhr.send(params);
@@ -122,7 +136,7 @@ var app = {
                 
                 for(var i=0; i< numReviews; i++){
                     var li = document.createElement("li");
-                    li.textContent = data.reviews[i].title;
+                    li.textContent = "Title: " + data.reviews[i].title + "--- Review of: " + data.reviews[i].rating;
                     ul.appendChild(li);
                      
                 }
@@ -142,15 +156,22 @@ var app = {
     }
     },
     
-    openDetails: function(ev){
+    openDetails: function(){
         
         
-          var li = document.getElementsByTagName("li");
+          var li = document.querySelectorAll("ul#appendLists > li");
          // li[0].addEventListener("click", app.listPage);
                 
             for(var i=0; i<li.length; i++){
                                   
-            li[i].addEventListener("click", app.listPage);
+            li[i].addEventListener("click", function(ev){
+                
+                
+                console.log(ev.target.responseText);
+                console.log(ev.target.value);
+                
+                
+            });
            // li[0].addEventListener("click", app.listPage);        
 
              } 
@@ -201,24 +222,6 @@ var app = {
         // this is what actually opens the camera app
     
            
-    },
-    
-    cameraSuccess: function(imageData){
-        //imageData is the object that holds my image in a string format (i think)
-        var xhr = new XMLHttpRequest();
-        var url = "set-review.php";
-        xhr.open("POST" , "set-review.php");
-        xhr.addEventListener("load", app.gotResponse);
-     
-        
-        var params = new FormData();
-        params.append("img", imageData);
-        params.append("review_id", device.uuid);
-        params.append("action", "update");
-        xhr.send(params);
-        console.log("camera success");
-        
-        
     },
     
     cameraError: function(message){

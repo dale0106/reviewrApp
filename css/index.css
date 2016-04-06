@@ -46,6 +46,7 @@ body{
     background-color: #4183D7;
     color: whitesmoke;
     font-size: 18px;
+   
     
 }
 
@@ -82,13 +83,11 @@ body{
 
 #create #stars{
     
-    font-size: 25px;
+    font-size: 30px;
     display: inline-block;
-    margin: 8px;
+    margin: 12px;
     width: 100%;
-    
-    
-    
+     
 }
 
 #create #submit{
