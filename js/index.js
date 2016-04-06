@@ -16,7 +16,7 @@ var app = {
     addBtn.addEventListener("click", app.createPage); //app and this are interchangable here
     
     var hammer = new Hammer(addBtn);
-  //  hammer.on("doubletap", app.createPage);
+    hammer.on("tap", app.createPage);
     hammer.on("swipe", function(){
         
         console.log("swiped");
@@ -33,23 +33,43 @@ var app = {
         // show the create page
         
         var cameraBtn = document.getElementById("cameraBtn");
+        var hammer = new Hammer(cameraBtn);
+        hammer.on("tap", app.takePic);
         cameraBtn.addEventListener("click", app.takePic);
         // run the camera plugin onclick camBtn
         
+        var starNumber = document.querySelectorAll("ul#stars > p");
+        
+        for(var i=0; i<starNumber.length;i++){
+            
+            starNumber[i].addEventListener("click", function(){
+                
+                console.log("you clicked on a star");
+                
+            })
+            
+        }
+        
+        
         var submitBtn =  document.getElementById("submit");
-        submitBtn.addEventListener("click", app.goBack);
+        submitBtn.addEventListener("click", app.upload);
+        var hammer1 = new Hammer(submitBtn);
+        hammer1.on("tap", app.upload);
       //  submitBtn.addEventListener("submit", app.appendNew, false);
      
         
         var cancelBtn  = document.getElementById("cancel");
         cancelBtn.addEventListener("click", app.goBack);
+        var hammer2 = new Hammer(cancelBtn);
+        hammer2.on("tap", app.goBack);
         //just return back to the list page        
     },
     
     upload: function(imageData){
-    // if you click the cam btn:
+    // if you click the cam/submit btn:
         
-       
+        var img = document.getElementById("preview");
+        img.src = "data:image/jpeg;base64," + imageData;
         
         var xhr = new XMLHttpRequest();
         var url = "https://griffis.edumedia.ca/mad9022/reviewr/review/set/";
@@ -66,6 +86,7 @@ var app = {
         params.append("img", imageData);
     
         xhr.send(params);
+        app.goBack();
        
 },
     
@@ -176,14 +197,7 @@ var app = {
             destinationType: Camera.DestinationType.DATA_URL
         };
         
-      navigator.camera.getPicture(function(fileURI){
-          
-          
-        var img = document.getElementById("preview");
-        img.src = fileURI;
-        app.upload();
-          
-      }, app.cameraError, cameraOptions);
+      navigator.camera.getPicture(app.upload, app.cameraError, cameraOptions);
         // this is what actually opens the camera app
     
            

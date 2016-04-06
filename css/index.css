@@ -172,3 +172,11 @@ body{
     z-index: 100;
   transform: translate3d(100%,0,0);
 }
+
+
+#preview{
+    
+    display: block;
+    width: 100%;
+    
+}
